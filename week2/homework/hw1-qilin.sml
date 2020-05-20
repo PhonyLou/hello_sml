@@ -57,3 +57,13 @@ fun dates_in_months(dates: (int*int*int) list, months: int list) =
     in
         loop([], months)
     end
+
+fun get_nth(strings: string list, n: int) =
+    let
+        fun loop(index: int, strings: string list) =
+            if index=n
+            then hd strings
+            else loop(index+1, tl strings)
+    in
+        loop(1, strings)
+    end
