@@ -103,3 +103,25 @@ fun what_month(dayOfYear: int) =
         then number_before_reaching_sum(dayOfYear, dates())
         else number_before_reaching_sum(dayOfYear, dates()) + 1
     end
+
+fun month_range(day1: int, day2: int) =
+    let
+        fun loop(length: int, monthRange: int list, index: int, month_n: int) =
+            if length=1
+            then monthRange @ [month_n]
+            else 
+                if index >= month_n
+                then loop(length-1, monthRange @ [month_n], index+1, month_n)
+                else loop(length-1, monthRange @ [index], index+1, month_n)
+        (* fun loop(monthRange: int list, month_n: int, index: int) =
+            if index = month_n
+            then monthRange @ [index]
+            else
+                loop(monthRange @ [index], month_n, index+1) *)
+    in
+        if day1 > day2
+        then []
+        else loop(day2-day1+1, [], what_month day1, what_month day2)
+    end
+
+    
