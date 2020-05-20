@@ -131,11 +131,17 @@ fun month_range(day1: int, day2: int) =
         else loop(day2-day1+1, [], what_month day1, what_month day2)
     end
 
-(* fun oldest(dates: (int*int*int) list) =
+fun oldest(dates: (int*int*int) list) =
     let
-        fun loop(oldest: int*int*int, left: int*int*int, right: int*int*int) =
-            if 
+        fun loop(oldest: int*int*int, dates: (int*int*int) list) =
+            if null dates
+            then oldest
+            else 
+                if is_older(oldest, hd dates)
+                then loop(oldest, tl dates)
+                else loop(hd dates, tl dates) 
     in
         if null dates
         then NONE
-    end *)
+        else SOME (loop(hd dates, dates))
+    end
