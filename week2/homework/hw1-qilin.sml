@@ -113,11 +113,6 @@ fun month_range(day1: int, day2: int) =
                 if index >= month_n
                 then loop(length-1, monthRange @ [month_n], index+1, month_n)
                 else loop(length-1, monthRange @ [index], index+1, month_n)
-        (* fun loop(monthRange: int list, month_n: int, index: int) =
-            if index = month_n
-            then monthRange @ [index]
-            else
-                loop(monthRange @ [index], month_n, index+1) *)
     in
         if day1 > day2
         then []
