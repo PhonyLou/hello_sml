@@ -47,3 +47,13 @@ fun dates_in_month(dates: (int*int*int) list, month: int) =
         loop([], dates)
     end
     
+fun dates_in_months(dates: (int*int*int) list, months: int list) =
+    let
+        fun loop(dates_in_months: (int*int*int) list, months: int list) =
+            if null months
+            then dates_in_months
+            else
+                loop(dates_in_months @ dates_in_month(dates, hd months), tl months)
+    in
+        loop([], months)
+    end
