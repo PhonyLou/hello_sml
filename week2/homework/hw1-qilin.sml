@@ -33,3 +33,17 @@ fun number_in_months(dates: (int*int*int) list, months: int list) =
     in
         loop(0, months)
     end
+
+fun dates_in_month(dates: (int*int*int) list, month: int) =
+    let
+        fun loop(in_month_datas: (int*int*int) list, dates: (int*int*int) list) =
+            if null dates
+            then in_month_datas
+            else
+                if #2 (hd dates) = month
+                then loop(in_month_datas @ [(hd dates)], tl dates)
+                else loop(in_month_datas, tl dates)
+    in
+        loop([], dates)
+    end
+    
