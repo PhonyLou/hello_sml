@@ -1,7 +1,19 @@
 fun is_older(first: int*int*int, second: int*int*int) =
-    if #1 first <= #1 second andalso #2 first <= #2 second andalso #3 first < #3 second
+    if #1 first < #1 second 
     then true
-    else false
+    else 
+        if #1 first > #1 second
+        then false
+        else
+            if #2 first < #2 second 
+            then true
+            else
+                if #2 first > #2 second
+                then false
+                else
+                    if #3 first < #3 second
+                    then true
+                    else false
 
 fun number_in_month(dates: (int*int*int) list, month: int) =
     let
@@ -119,4 +131,11 @@ fun month_range(day1: int, day2: int) =
         else loop(day2-day1+1, [], what_month day1, what_month day2)
     end
 
-    
+(* fun oldest(dates: (int*int*int) list) =
+    let
+        fun loop(oldest: int*int*int, left: int*int*int, right: int*int*int) =
+            if 
+    in
+        if null dates
+        then NONE
+    end *)
