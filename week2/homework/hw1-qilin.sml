@@ -75,3 +75,13 @@ fun date_to_string(date: int*int*int) =
     in
         get_nth(months(), #2 date) ^ " " ^Int.toString(#3 date) ^ ", " ^ Int.toString(#1 date) 
     end
+
+fun number_before_reaching_sum(sum: int, xs: int list) =
+    let
+        fun loop(sums: int, n: int, xs: int list) =
+            if sums >= sum
+            then n-1
+            else loop(hd (tl xs) + sums, n+1, tl xs)
+    in
+        loop(hd xs, 1, xs)
+    end
