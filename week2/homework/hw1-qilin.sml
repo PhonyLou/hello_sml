@@ -11,21 +11,11 @@ fun is_older(first: int*int*int, second: int*int*int) =
     end
 
 fun number_in_month(dates: (int*int*int) list, month: int) =
-    let
-        fun is_in_month(date: int*int*int, month: int) =
-            if #2 date = month
-            then true
-            else false
-
-        fun loop(count: int, dates: (int*int*int) list, month: int) = 
-            if null dates
-            then count
-            else
-                if is_in_month(hd dates, month)
-                then loop(count+1, tl dates, month)
-                else loop(count, tl dates, month)
-    in loop(0, dates, month)
-    end
+    if null dates
+    then 0
+    else if #2 (hd dates) = month
+    then 1 + number_in_month(tl dates, month)
+    else number_in_month(tl dates, month)
 
 fun number_in_months(dates: (int*int*int) list, months: int list) =
     let
