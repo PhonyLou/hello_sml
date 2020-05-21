@@ -1,19 +1,14 @@
 fun is_older(first: int*int*int, second: int*int*int) =
-    if #1 first < #1 second 
-    then true
-    else 
-        if #1 first > #1 second
-        then false
-        else
-            if #2 first < #2 second 
-            then true
-            else
-                if #2 first > #2 second
-                then false
-                else
-                    if #3 first < #3 second
-                    then true
-                    else false
+    let
+        val y1 = #1 first
+        val m1 = #2 first
+        val d1 = #3 first
+        val y2 = #1 second
+        val m2 = #2 second
+        val d2 = #3 second
+    in
+        y1<y2 orelse (y1=y2 andalso m1<m2) orelse (y1=y2 andalso m1=m2 andalso d1<d2)
+    end
 
 fun number_in_month(dates: (int*int*int) list, month: int) =
     let
