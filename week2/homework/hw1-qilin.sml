@@ -24,14 +24,12 @@ fun number_in_month(dates: (int*int*int) list, month: int) =
 
         fun loop(count: int, dates: (int*int*int) list, month: int) = 
             if null dates
-            then
-                count
+            then count
             else
                 if is_in_month(hd dates, month)
                 then loop(count+1, tl dates, month)
                 else loop(count, tl dates, month)
-    in
-        loop(0, dates, month)
+    in loop(0, dates, month)
     end
 
 fun number_in_months(dates: (int*int*int) list, months: int list) =
@@ -39,11 +37,8 @@ fun number_in_months(dates: (int*int*int) list, months: int list) =
         fun loop(count: int, months: int list) = 
             if null months
             then count
-            else
-                loop(count+number_in_month(dates, hd months), tl months)
-
-    in
-        loop(0, months)
+            else loop(count+number_in_month(dates, hd months), tl months)
+    in loop(0, months)
     end
 
 fun dates_in_month(dates: (int*int*int) list, month: int) =
@@ -55,8 +50,7 @@ fun dates_in_month(dates: (int*int*int) list, month: int) =
                 if #2 (hd dates) = month
                 then loop(in_month_datas @ [(hd dates)], tl dates)
                 else loop(in_month_datas, tl dates)
-    in
-        loop([], dates)
+    in loop([], dates)
     end
     
 fun dates_in_months(dates: (int*int*int) list, months: int list) =
@@ -66,8 +60,7 @@ fun dates_in_months(dates: (int*int*int) list, months: int list) =
             then dates_in_months
             else
                 loop(dates_in_months @ dates_in_month(dates, hd months), tl months)
-    in
-        loop([], months)
+    in loop([], months)
     end
 
 fun get_nth(strings: string list, n: int) =
@@ -76,16 +69,14 @@ fun get_nth(strings: string list, n: int) =
             if index=n
             then hd strings
             else loop(index+1, tl strings)
-    in
-        loop(1, strings)
+    in loop(1, strings)
     end
 
 fun date_to_string(date: int*int*int) =
     let
         fun months() =
             ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    in
-        get_nth(months(), #2 date) ^ " " ^Int.toString(#3 date) ^ ", " ^ Int.toString(#1 date) 
+    in get_nth(months(), #2 date) ^ " " ^Int.toString(#3 date) ^ ", " ^ Int.toString(#1 date) 
     end
 
 fun number_before_reaching_sum(sum: int, xs: int list) =
@@ -94,8 +85,7 @@ fun number_before_reaching_sum(sum: int, xs: int list) =
             if sums >= sum
             then n-1
             else loop(hd (tl xs) + sums, n+1, tl xs)
-    in
-        loop(hd xs, 1, xs)
+    in loop(hd xs, 1, xs)
     end
 
 fun what_month(dayOfYear: int) =
