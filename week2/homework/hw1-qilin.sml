@@ -75,20 +75,9 @@ fun number_before_reaching_sum(sum: int, xs: int list) =
 
 fun what_month(dayOfYear: int) =
     let
-        fun dates() =
-            [31,28,31,30,31,30,31,31,30,31,30,31]
-        fun is_reach_date(sum: int, n: int, dates: int list) =
-            if n=0
-            then 
-                if sum<dayOfYear
-                then false
-                else true
-            else 
-                is_reach_date(hd dates + sum, n-1, tl dates)
+        val dates = [31,28,31,30,31,30,31,31,30,31,30,31]
     in
-        if is_reach_date(0, number_before_reaching_sum(dayOfYear, dates()), dates())
-        then number_before_reaching_sum(dayOfYear, dates())
-        else number_before_reaching_sum(dayOfYear, dates()) + 1
+        1 + number_before_reaching_sum(dayOfYear, dates)
     end
 
 fun month_range(day1: int, day2: int) =
