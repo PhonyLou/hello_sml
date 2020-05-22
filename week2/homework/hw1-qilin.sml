@@ -92,19 +92,9 @@ fun what_month(dayOfYear: int) =
     end
 
 fun month_range(day1: int, day2: int) =
-    let
-        fun loop(length: int, monthRange: int list, index: int, month_n: int) =
-            if length=1
-            then monthRange @ [month_n]
-            else 
-                if index >= month_n
-                then loop(length-1, monthRange @ [month_n], index+1, month_n)
-                else loop(length-1, monthRange @ [index], index+1, month_n)
-    in
-        if day1 > day2
-        then []
-        else loop(day2-day1+1, [], what_month day1, what_month day2)
-    end
+    if day1>day2
+    then []
+    else what_month day1 :: month_range(day1+1, day2)
 
 fun oldest(dates: (int*int*int) list) =
     let
