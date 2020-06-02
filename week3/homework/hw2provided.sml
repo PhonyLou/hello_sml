@@ -27,6 +27,19 @@ fun get_substitutions1 (s: string list list, k: string) =
             NONE => get_substitutions1(s', k)
             | SOME xs => xs @ get_substitutions1(s', k)
 
+fun get_substitutions2 (s: string list list, k: string) =
+   let
+      fun loop (s: string list list, acc: string list) =
+         case s of 
+            [] => acc
+            | s' :: xs => 
+               case all_except_option(k, s') of
+                  NONE => loop(xs, acc)
+                  | SOME v => loop(xs, acc @ v)
+   in
+      loop(s, [])
+   end
+
 (* you may assume that Num is always used with values 2, 3, ..., 10
    though it will not really come up *)
 datatype suit = Clubs | Diamonds | Hearts | Spades
