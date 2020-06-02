@@ -7,10 +7,17 @@ fun same_string(s1 : string, s2 : string) =
     s1 = s2
 
 (* put your solutions for problem 1 here *)
-fun all_except_option (s, xs) =
-   case xs of 
-      [] => NONE
-   | x :: xs' => if same_string (s, x) then SOME xs' else all_except_option(s, xs')
+fun all_except_option (s: string, xs: string list) =
+   let
+      fun loop(lst: string list, res: string list) =
+         case res of
+            [] => NONE
+            | x :: xs' => if same_string (s, x) 
+                          then SOME (lst @ xs')
+                          else loop(lst @ [x], xs')
+   in
+      loop([], xs)
+   end
 
 (* you may assume that Num is always used with values 2, 3, ..., 10
    though it will not really come up *)
