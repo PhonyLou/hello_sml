@@ -5,8 +5,8 @@
 use "hw2provided.sml";
 val test1 = all_except_option ("string", ["string"]) = SOME []
 
-(* val test2 = get_substitutions1 ([["foo"],["there"]], "foo") = []
-
+val test2 = get_substitutions1 ([["foo"],["there"]], "foo") = []
+(*
 val test3 = get_substitutions2 ([["foo"],["there"]], "foo") = []
 
 val test4 = similar_names ([["Fred","Fredrick"],["Elizabeth","Betty"],["Freddie","Fred","F"]], {first="Fred", middle="W", last="Smith"}) =
