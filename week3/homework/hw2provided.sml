@@ -87,3 +87,11 @@ fun remove_card(cs: card list, c: card, e: exn) =
    in
       loop(cs, [], false)
    end
+
+fun all_same_color(cs: card list) =
+   case cs of
+      [] => true
+      | c1 :: c2 :: cs' => (card_color(c1)=card_color(c2)) andalso all_same_color(c2::cs')
+      | c1 :: [] => true
+                           
+
