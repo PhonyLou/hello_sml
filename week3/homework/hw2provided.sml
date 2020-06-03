@@ -116,3 +116,18 @@ fun score(cs: card list, g: int) =
       else pre
    end
    
+fun officiate(cs: card list, ms: move list, g: int) =
+   let
+      fun loop(cs: card list, hcs: card list, ms: move list) =
+         case ms of
+            [] => score(hcs,g)
+            | m :: ms' => case m of
+                           Discard c => loop(cs, remove_card(hcs, c, IllegalMove), ms')
+                           | Draw => case cs of 
+                                    [] => score(hcs, g)
+                                    | aCard :: cs' => if sum_cards(aCard::hcs) > g
+                                                      then score(aCard::hcs, g)
+                                                      else loop(cs', aCard::hcs, ms')
+   in
+      loop(cs, [], ms)
+   end
