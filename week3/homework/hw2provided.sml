@@ -93,5 +93,13 @@ fun all_same_color(cs: card list) =
       [] => true
       | c1 :: c2 :: cs' => (card_color(c1)=card_color(c2)) andalso all_same_color(c2::cs')
       | c1 :: [] => true
-                           
 
+fun sum_cards(cs: card list) =
+   let
+      fun loop(cs: card list, acc: int) =
+         case cs of 
+            [] => acc
+            | aCard :: cs' => loop(cs', card_value(aCard) + acc)
+   in
+      loop(cs, 0)
+   end
