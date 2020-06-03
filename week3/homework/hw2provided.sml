@@ -75,3 +75,15 @@ fun card_value(aCard: card) =
       (_, Num x) => x
       | (_, Ace) => 11
       | _ => 10
+
+fun remove_card(cs: card list, c: card, e: exn) =
+   let
+      fun loop(cs: card list, ncs: card list, withCard: bool) =
+         case cs of
+            [] => if withCard then ncs else raise e
+            | aCard :: cs' => if aCard=c andalso withCard=false 
+                              then loop(cs', ncs, true)
+                              else loop(cs', ncs @ [aCard], withCard)
+   in
+      loop(cs, [], false)
+   end
