@@ -103,3 +103,16 @@ fun sum_cards(cs: card list) =
    in
       loop(cs, 0)
    end
+
+fun score(cs: card list, g: int) =
+   let
+      val sum = sum_cards(cs)
+      val pre = if sum > g
+                  then 3 * (sum-g)
+                  else g-sum
+   in
+      if all_same_color(cs)
+      then pre div 2
+      else pre
+   end
+   
