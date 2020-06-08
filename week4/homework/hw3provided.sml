@@ -49,3 +49,5 @@ fun longest_string_helper f xs =
 
 val longest_string3 = longest_string_helper(fn (x,y) => if x > y then true else false)
 val longest_string4 = longest_string_helper(fn (x,y) => if x >= y then true else false)
+
+val longest_capitalized = longest_string3 o only_capitals
