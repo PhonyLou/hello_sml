@@ -70,3 +70,36 @@ fun all_answers f xs =
 			[] => SOME []
 			| x::xs' => loop([], map f xs)
 	end	
+
+fun count_wildcards p =
+	g (fn () => 1) (fn x => 0) p
+
+fun count_wild_and_variable_lengths p =
+    g (fn _ => 1) (fn x => String.size x) p
+
+fun count_some_var (s,p) =
+	g (fn () => 0) (fn x => if x = s then 1 else 0) p
+
+fun check_pat(p) = 
+    let fun list_vars (Variable x) = [x]
+	  | list_vars (TupleP ps) = List.foldl (fn (p', acc) => acc @ list_vars(p')) [] ps
+	  | list_vars (_) = []
+	fun has_repeats ([]) = false
+	  | has_repeats (x::xs) = List.exists (fn x' => x = x') xs orelse has_repeats xs
+    in
+	(not o has_repeats o list_vars) p
+    end
+
+fun match(v, p) = 
+    case (p, v) of
+	(Wildcard, _) => SOME []
+      | (Variable s, _) => SOME [(s,v)]
+      | (UnitP, Unit) => SOME []
+      | (ConstP cp, Const cv) => if cp = cv then SOME [] else NONE
+      | (TupleP ps, Tuple vs) => if List.length ps = List.length vs 
+				 then all_answers (fn (vs',ps') => match(vs',ps')) (ListPair.zip(vs,ps))
+				 else NONE
+      | (ConstructorP(s1,pp), Constructor(s2,pv)) => if s1 = s2 then match(pv,pp) else NONE
+      | _ => NONE
+fun first_match v ps = 
+	(SOME(first_answer (fn p => match(v,p)) ps)) handle NoAnswer => NONE
