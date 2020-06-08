@@ -60,3 +60,13 @@ fun first_answer f xs =
   		| x::xs' => case f x of 
 				    SOME x' => x'
 				  | NONE => first_answer f xs'
+
+fun all_answers f xs = 
+	let fun loop(acc, []) = SOME acc
+			| loop(acc, SOME(y)::ys) = loop(acc @ y, ys)
+			| loop(acc, NONE::ys) = NONE
+	in
+		case xs of
+			[] => SOME []
+			| x::xs' => loop([], map f xs)
+	end	
